@@ -95,6 +95,6 @@ npm run dev
 ### One final check for you:
 Before you log off, double-check that your **`.env.local`** file has those four `NEXT_PUBLIC_CLERK_...` URLs I sent in the previous turn. If you don't add those, the "Sign Up" link on your login page will still try to go to the white Clerk website instead of your cool new page.
 
-**Would you like me to generate a specific "Component Guide" for Vaishnavi and Ajeth so they know how to reuse your neon buttons and card styles?**
+
 
 ```

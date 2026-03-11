@@ -1,48 +1,53 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
+import { ClerkProvider, Show } from "@clerk/nextjs";
+import { ui } from "@clerk/ui";
 import "./globals.css";
 
-// Using a standard Next.js monospaced font for the IDE look
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "DoDoX | Command Center",
-  description: "Real-time collaborative workspace for developer squads.",
+  title: "DoDoX | Spaces",
+  description: "Real-time collaborative spaces for developers.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistMono.variable} font-mono bg-[#0A0A0A] text-gray-100 antialiased flex h-screen overflow-hidden`}
-      >
-        {/* SIDEBAR SKELETON: 
-          Akshay, this keeps the layout fixed so Vaishnavi's Kanban board 
-          and Ajeth's Editor have the exact right amount of screen space.
-        */}
-        <aside className="w-64 border-r border-gray-800 bg-black flex flex-col p-6 hidden md:flex">
-          <div className="text-2xl font-bold text-blue-500 mb-10 tracking-widest">
-            DoDoX_
-          </div>
-          <nav className="flex flex-col gap-6 text-sm text-gray-500">
-            <a href="/" className="hover:text-blue-400 transition-colors">&gt; /dashboard</a>
-            <a href="/board" className="hover:text-blue-400 transition-colors">&gt; /board</a>
-            <a href="/editor" className="hover:text-blue-400 transition-colors">&gt; /editor</a>
-          </nav>
-        </aside>
+    <ClerkProvider ui={ui}>
+      <html lang="en" className="dark">
+        <body className="bg-[#09090b] text-zinc-100 antialiased flex flex-col h-screen overflow-hidden selection:bg-[#ccff00] selection:text-black font-sans">
+          
+          {/* SLEEKER FLOATING PILL NAVIGATION */}
+          <Show when="signed-in">
+            <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
+              <nav className="flex items-center gap-1 p-1 bg-black/80 backdrop-blur-xl border-2 border-zinc-800 rounded-full shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
+                
+                {/* Logo mark */}
+                <div className="bg-[#ccff00] text-black font-black italic px-4 py-1.5 rounded-full mr-1 text-sm">
+                  DX.
+                </div>
 
-        {/* MAIN CONTENT AREA: This is where page.tsx gets injected */}
-        <main className="flex-1 flex flex-col h-full relative overflow-y-auto">
-          {children}
-        </main>
-      </body>
-    </html>
+                <a href="/" className="px-4 py-1.5 rounded-full text-xs font-bold text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors uppercase tracking-widest">
+                  Spaces
+                </a>
+                <a href="/board" className="px-4 py-1.5 rounded-full text-xs font-bold text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors uppercase tracking-widest">
+                  Board
+                </a>
+                <a href="/editor" className="px-4 py-1.5 rounded-full text-xs font-bold text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors uppercase tracking-widest">
+                  Editor
+                </a>
+              </nav>
+            </div>
+          </Show>
+
+          {/* MAIN CANVAS */}
+          <main className="flex-1 overflow-y-auto relative">
+            {children}
+          </main>
+
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

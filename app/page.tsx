@@ -1,36 +1,45 @@
 export default function CommandCenter() {
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-[#0A0A0A] p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0A0A0A] px-4 relative overflow-hidden">
       
-      {/* Top Telemetry Bar */}
-      <div className="absolute top-0 w-full flex justify-between items-center p-4 border-b border-gray-800 text-xs text-gray-500 bg-black/50">
-        <span>STATUS: <span className="text-green-500 animate-pulse">ONLINE</span></span>
-        <span>AUTH_STATE: UNAUTHENTICATED</span>
-      </div>
+      {/* Subtle Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* Terminal Prompt Card */}
-      <div className="max-w-2xl w-full border border-gray-800 bg-[#0c0c0c] p-10 rounded shadow-2xl">
-        <h1 className="text-4xl font-bold mb-2 tracking-tighter text-white">
-          SYSTEM.INIT <span className="text-blue-500 animate-pulse">_</span>
+      {/* Top Navigation / Telemetry */}
+      <nav className="absolute top-0 w-full flex justify-between items-center p-6 border-b border-white/5 bg-black/40 backdrop-blur-md">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+          <span className="text-sm font-medium tracking-widest text-gray-300">DoDoX_WORKSPACE</span>
+        </div>
+        <div className="text-xs text-gray-500 font-mono bg-white/5 px-3 py-1 rounded-full border border-white/10">
+          Unauthenticated
+        </div>
+      </nav>
+
+      {/* Main Entry Card */}
+      <div className="z-10 w-full max-w-md p-8 rounded-2xl bg-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col items-center text-center">
+        
+        <h1 className="text-4xl font-bold tracking-tight text-white mb-3">
+          Enter the War Room
         </h1>
-        <p className="text-gray-400 mb-10 text-sm">
-          Authenticate to establish a secure connection. Deploy a new war room or enter an existing squad coordinate.
+        <p className="text-gray-400 text-sm mb-10 leading-relaxed">
+          High-density collaborative workspace for developer squads. Deploy a new instance or sync with your team.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <button className="flex-1 bg-blue-600 hover:bg-blue-500 text-white px-6 py-4 rounded text-sm font-bold transition-all border border-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.2)]">
-            &gt; DEPLOY_NEW_SQUAD
+        <div className="flex flex-col w-full gap-4">
+          <button className="w-full group relative flex items-center justify-center gap-3 bg-white text-black px-6 py-3.5 rounded-lg text-sm font-bold transition-all hover:bg-gray-200">
+            Deploy New Squad
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </button>
-          <button className="flex-1 bg-transparent hover:bg-gray-900 text-gray-300 px-6 py-4 rounded text-sm font-bold transition-all border border-gray-700 hover:border-gray-500">
-            &gt; JOIN_VIA_CODE
+          
+          <button className="w-full flex items-center justify-center px-6 py-3.5 rounded-lg text-sm font-medium text-gray-300 transition-all border border-white/10 hover:bg-white/5 hover:text-white">
+            Join via Invite Code
           </button>
-        </div>
-
-        <div className="mt-8 pt-6 border-t border-gray-800 text-xs text-gray-600 flex justify-between">
-          <span>Awaiting user authentication...</span>
-          <span>v1.0.0-alpha</span>
         </div>
       </div>
+
     </div>
   );
 }
